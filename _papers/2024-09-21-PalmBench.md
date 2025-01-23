@@ -3,7 +3,7 @@ layout: papers
 title: "PalmBench: A Comprehensive Benchmark of Compressed Large Language Models on Mobile Platforms"
 date: 2024-9-21
 image: /images/palmbench.png
-venue: "Under Review"
+venue: "ICLR 2025"
 authors: "<strong>Yilong Li</strong>, Jingyu Liu, Hao Zhang, M Badri Narayanan, Utkarsh Sharma, Shuai Zhang, Pan Hu, Yijing Zeng, Bangya Liu, Jayaram Raghuram, Suman Banerjee"
 link: https://arxiv.org/abs/2410.05315
 arxiv: https://arxiv.org/abs/2410.05315
