@@ -1,113 +1,264 @@
-#
-# This file contains configuration flags to customize your site
-#
+# -----------------------------------------------------------------------------
+# Site settings
+# -----------------------------------------------------------------------------
 
-# Name of your site (displayed in the header)
-name: Yilong Li's Webpage
+title: blank # the website title (if blank, full name will be used instead)
+first_name: Yilong
+middle_name:
+last_name: Li
+contact_note: >
+  Feel free to reach out via email for research collaboration or inquiries.
+description: >
+  PhD student in Computer Science at UW-Madison. Research interests span networked/wireless systems, efficient LLM inference on edge devices, and multimodal AI for wearables.
+footer_text: >
+  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+keywords: yilong li, wireless systems, llm inference, edge computing, wearable devices, uwb radar, mmwave
+lang: en
+icon: "\U0001F4E1" # satellite antenna emoji
 
-# Short bio or description (displayed in the header)
-# description: the profile of an engineer, researcher and software developer
+url: https://jimmyli-network.github.io
+baseurl: # leave blank for root
+last_updated: true
+back_to_top: true
 
-# URL of your avatar or profile pic (you could use your GitHub profile pic)
-#avatar: images/me.jpg
+# -----------------------------------------------------------------------------
+# Theme
+# -----------------------------------------------------------------------------
 
-#
-# Flags below are optional
-#
+repo_theme_light: default
+repo_theme_dark: dark
+repo_trophies:
+  enabled: false
 
-# Includes an icon in the footer for each username you enter
-footer-links:
-  dribbble:
-  email: yli758@wisc.edu
-  facebook:
-  flickr:
-  github: https://github.com/JimmyLi-Network
-  instagram:
-  linkedin: https://www.linkedin.com/in/yilong-li-80a76862/
-  pinterest:
-  rss: # just type anything here for a working RSS icon
-  twitter:
-  stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
-  youtube: # channel/<your_long_string> or user/<user-name>
-  googleplus: # anything in your profile username that comes after plus.google.com/
+# -----------------------------------------------------------------------------
+# Layout
+# -----------------------------------------------------------------------------
 
+navbar_fixed: true
+footer_fixed: true
+search_enabled: true
+socials_in_search: false
+posts_in_search: false
+bib_search: true
 
-# Enter your Disqus shortname (not your username) to enable commenting on posts
-# You can find your shortname on the Settings page of your Disqus account
-disqus:
+max_width: 930px
 
-# Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics:
-# excerpt_separator: <!--more-->
+# -----------------------------------------------------------------------------
+# Open Graph & Schema.org
+# -----------------------------------------------------------------------------
 
-# Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
-# Used for Sitemap.xml and your RSS feed
-# url: "https://dev10110.github.io" # the base hostname & protocol for your site
+serve_og_meta: true
+serve_schema_org: true
+og_image: assets/img/uwb.jpg
 
-# If you're hosting your site at a Project repository on GitHub pages
-# (http://yourusername.github.io/repository-name)
-# and NOT your User repository (http://yourusername.github.io)
-# then add in the baseurl here, like this: "/repository-name"
-#baseurl: ""
+# -----------------------------------------------------------------------------
+# Analytics
+# -----------------------------------------------------------------------------
 
-#
-# !! You don't need to change any of the configuration flags below !!
-#
+google_analytics: G-E00L9PT3V9
+enable_google_analytics: true
 
-permalink: /:title/
-# permalink: /
+# -----------------------------------------------------------------------------
+# Blog
+# -----------------------------------------------------------------------------
 
+blog_name: Yilong Li's Blog
+blog_description: Research notes and updates
+permalink: /blog/:year/:title/
+lsi: false
 
-# The release of Jekyll Now that you're using
-version: v1.2.0
+pagination:
+  enabled: false
 
-# Jekyll 3 now only supports Kramdown for Markdown
-kramdown:
-  # Use GitHub flavored markdown, including triple backtick fenced code blocks
-  input: GFM
-  # Jekyll 3 and GitHub Pages now only support rouge for syntax highlighting
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    # Use existing pygments syntax highlighting css
-    css_class: 'highlight'
+related_blog_posts:
+  enabled: false
 
-# Set the Sass partials directory, as we're using @imports
-sass:
-  style: :compressed # You might prefer to minify using :compressed
-
-# Use the following plug-ins
-plugins:
-      - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
-    #  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
-
-# define the categories to show on the home page
-table_categories:
-  #- patents
-  # - talks
+# -----------------------------------------------------------------------------
+# Collections
+# -----------------------------------------------------------------------------
 
 collections:
-  posts:
+  news:
+    defaults:
+      layout: post
     output: true
   projects:
     output: true
-  papers:
-    output: true
-  news:
-    output: true
 
+# -----------------------------------------------------------------------------
+# Jekyll settings
+# -----------------------------------------------------------------------------
 
-# Exclude these files from your production _site
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+include: ["_pages"]
 exclude:
+  - bin/
+  - CONTRIBUTING.md
+  - CUSTOMIZE.md
+  - Dockerfile
+  - docker-compose.yml
+  - docker-compose-slim.yml
+  - FAQ.md
   - Gemfile
   - Gemfile.lock
+  - INSTALL.md
   - LICENSE
+  - lighthouse_results/
+  - package.json
+  - package-lock.json
+  - purgecss.config.js
   - README.md
+  - readme_preview/
+  - vendor
+  - backup/
+keep_files:
   - CNAME
-  - command.txt
-  - todo.txt
-  - _temp/index.html
-  - _temp/
+  - .nojekyll
 
-# produce files even if their date is in the future
-future:
-  true
+plugins:
+  - jekyll-email-protect
+  - jekyll-feed
+  - jekyll-link-attributes
+  - jekyll-paginate-v2
+  - jekyll/scholar
+  - jekyll-sitemap
+  - jekyll-toc
+  - jemoji
+
+defaults:
+  - scope:
+      path: "assets"
+    values:
+      sitemap: false
+
+sass:
+  style: compressed
+
+# -----------------------------------------------------------------------------
+# Jekyll Minifier
+# -----------------------------------------------------------------------------
+
+jekyll-minifier:
+  compress_javascript: false
+  exclude: ["robots.txt", "assets/js/search/*.js"]
+
+# -----------------------------------------------------------------------------
+# Jekyll Scholar
+# -----------------------------------------------------------------------------
+
+scholar:
+  last_name: [Li]
+  first_name: [Yilong]
+
+  style: apa
+  locale: en
+
+  source: /_bibliography/
+  bibliography: papers.bib
+  bibliography_template: bib
+  bibtex_filters: [latex, smallcaps, superscript]
+
+  replace_strings: true
+  join_strings: true
+
+  details_dir: bibliography
+  details_link: Details
+
+  query: "@*"
+  group_by: year
+  group_order: descending
+
+enable_publication_badges:
+  altmetric: false
+  dimensions: false
+  google_scholar: true
+  inspirehep: false
+
+filtered_bibtex_keywords:
+  [
+    abbr,
+    abstract,
+    additional_info,
+    altmetric,
+    annotation,
+    arxiv,
+    award,
+    award_name,
+    bibtex_show,
+    blog,
+    code,
+    dimensions,
+    eprint,
+    google_scholar_id,
+    hal,
+    html,
+    inspirehep_id,
+    pdf,
+    pmid,
+    poster,
+    preview,
+    selected,
+    slides,
+    supp,
+    video,
+    website,
+  ]
+
+max_author_limit: 6
+more_authors_animation_delay: 10
+enable_publication_thumbnails: true
+
+# -----------------------------------------------------------------------------
+# Jekyll Link Attributes
+# -----------------------------------------------------------------------------
+
+external_links:
+  enabled: true
+  rel: external nofollow noopener
+  target: _blank
+
+# -----------------------------------------------------------------------------
+# Responsive WebP Images
+# -----------------------------------------------------------------------------
+
+imagemagick:
+  enabled: false # disable for now to simplify
+
+lazy_loading_images: true
+
+# -----------------------------------------------------------------------------
+# Optional Features
+# -----------------------------------------------------------------------------
+
+enable_cronitor_analytics: false
+enable_google_verification: false
+enable_masonry: true
+enable_math: true
+enable_tooltips: false
+enable_darkmode: true
+enable_navbar_social: false
+enable_project_categories: true
+enable_medium_zoom: true
+enable_progressbar: true
+enable_video_embedding: false
+
+# -----------------------------------------------------------------------------
+# Social integration
+# -----------------------------------------------------------------------------
+
+github_username: JimmyLi-Network
+linkedin_username: yilong-li-80a76862
+scholar_userid: G6P9aMQAAAAJ
+email: yli758@wisc.edu

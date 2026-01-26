@@ -1,0 +1,116 @@
+cv:
+  name: Yilong Li
+  label: PhD Student
+  email: yli758@wisc.edu
+  location: Madison, WI
+  image: ""
+  summary: PhD student in Computer Science at UW-Madison, focusing on wireless systems, efficient LLM inference, and wearable computing.
+
+  social_networks:
+    - network: GitHub
+      username: JimmyLi-Network
+    - network: LinkedIn
+      username: yilong-li-80a76862
+    - network: GoogleScholar
+      username: G6P9aMQAAAAJ
+
+  sections:
+    Education:
+      - institution: University of Wisconsin-Madison
+        location: Madison, WI, USA
+        url: https://wisc.edu/
+        area: Computer Science
+        studyType: PhD
+        start_date: 2018
+        end_date: present
+        highlights:
+          - "Advisor: Prof. Suman Banerjee"
+          - "Research areas: Wireless systems, Edge computing, LLM inference"
+
+    Experience:
+      - company: NEC Laboratories America
+        position: Research Intern
+        location: Princeton, NJ, USA
+        start_date: 2020
+        end_date: 2021
+        summary: Developed a scalable, high-resolution 16x16 Ultra-Wideband (UWB) radar system for monitoring human vital signs.
+        highlights:
+          - "Built comprehensive hardware platform from design to firmware to algorithms"
+          - "Developed multi-head attention contrastive learning model for vital sign extraction"
+          - "Achieved accurate vital sign monitoring from multiple moving targets"
+
+    Publications:
+      - title: "Medusa: Scalable Multi-View Biometric Sensing in the Wild with Distributed MIMO Radars"
+        authors:
+          - Yilong Li
+          - Ramanujan K Sheshadri
+          - Karthik Sundaresan
+          - Eugene Chai
+          - Suman Banerjee
+        publisher: MobiCom 2025
+        releaseDate: 2025
+        url: https://arxiv.org/abs/2310.05507
+
+      - title: "PalmBench: A Comprehensive Benchmark of Compressed Large Language Models on Mobile Platforms"
+        authors:
+          - Yilong Li
+          - Jingyu Liu
+          - Hao Zhang
+          - et al.
+        publisher: ICLR 2025
+        releaseDate: 2025
+        url: https://arxiv.org/abs/2410.05315
+
+      - title: "Enabling Wideband, Mobile Spectrum Sensing through Onboard Heterogeneous Computing"
+        authors:
+          - Yilong Li
+          - Yijing Zeng
+          - Suman Banerjee
+        publisher: HotMobile 2021
+        releaseDate: 2021
+        url: https://doi.org/10.1145/3446382.3448651
+
+      - title: "LiveTag: Sensing Human-Object Interaction through Passive Chipless WiFi Tags"
+        authors:
+          - Chuhan Gao
+          - Yilong Li
+          - Xinyu Zhang
+        publisher: NSDI 2018
+        releaseDate: 2018
+        url: https://dl.acm.org/doi/abs/10.5555/3307441.3307487
+
+    Skills:
+      - name: Hardware Design
+        level: Expert
+        icon: fa-solid fa-microchip
+        keywords: "RF design, PCB design, FPGA, Microwave systems, UWB radar"
+
+      - name: Software Development
+        level: Expert
+        icon: fa-solid fa-code
+        keywords: "C/C++, Python, CUDA, OpenCL, Mobile development"
+
+      - name: Machine Learning
+        level: Advanced
+        icon: fa-solid fa-brain
+        keywords: "LLM optimization, Quantization, Model compression, Contrastive learning"
+
+    Languages:
+      - name: Chinese
+        summary: "Native speaker"
+
+      - name: English
+        summary: "Fluent"
+
+    Interests:
+      - name: Wireless Systems
+        icon: fa-solid fa-wifi
+        keywords: "UWB radar, mmWave ISAC, Spectrum sensing"
+
+      - name: Edge AI
+        icon: fa-solid fa-robot
+        keywords: "LLM inference, Model quantization, Hardware-software co-design"
+
+      - name: Wearable Computing
+        icon: fa-solid fa-watch
+        keywords: "Multimodal sensing, On-device inference, Accessibility"
