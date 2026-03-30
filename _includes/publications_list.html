@@ -1,29 +1,45 @@
-<div class="mt-3 mb-5">
-  <div class="row">
-    <h2 id="publications">Selected Publications</h2>
+<section id="publications" class="home-section">
+  <div class="section-heading">
+    <p class="section-label">Selected Output</p>
+    <h2>Selected Publications</h2>
+    <p class="section-intro">
+      Recent work on efficient multimodal inference, mobile AI benchmarking,
+      and wireless sensing systems.
+    </p>
+  </div>
 
-
-    {% assign posts =  site.papers | sort: "date" | reverse%}
+  {% assign posts = site.papers | where: "featured", true | sort: "date" | reverse %}
+  <div class="publication-list">
     {% for post in posts %}
-
-    <div class="row align-items-top mt-3">
-      <div class="col-md-3 mb-2">
-          {% if {{post.image}} %}
-        <a href="{{post.url}}">
-          <img
-            class="img-thumbnail img-fluid"
-            src="{{post.image}}"
-            alt="project image"
-          />
+      <article class="publication-item">
+        {% if post.image %}
+        <a class="publication-image-link" href="{{ post.url }}">
+          <img class="publication-image" src="{{ post.image }}" alt="{{ post.title }}" />
         </a>
         {% endif %}
-      </div>
-
-      <div class="col-md-9">
-        <a href="{{post.url}}"> <h3>{{ forloop.index }}. {{post.title}}</h3></a>
-        {% include publication_blurb.html %}
-      </div>
-    </div>
+        <div class="publication-copy">
+          <a href="{{ post.url }}"><h3>{{ post.title }}</h3></a>
+          <p class="publication-meta">
+            {{ post.authors }}<br />
+            <span>{{ post.venue }}</span> · <span>{{ post.date | date: "%Y" }}</span>
+          </p>
+          {% if post.abstract %}
+          <p>{{ post.abstract | strip_html | truncate: 220 }}</p>
+          {% endif %}
+          <p class="publication-links">
+            {% if post.arxiv %}
+            <a href="{{ post.arxiv }}">arXiv</a>
+            {% endif %}
+            {% if post.pdf %}
+            <a href="{{ post.pdf }}">PDF</a>
+            {% endif %}
+            {% if post.link and post.link != post.arxiv and post.link != post.pdf %}
+            <a href="{{ post.link }}">Link</a>
+            {% endif %}
+            <a href="{{ post.url }}">Details</a>
+          </p>
+        </div>
+      </article>
     {% endfor %}
   </div>
-</div>
+</section>
