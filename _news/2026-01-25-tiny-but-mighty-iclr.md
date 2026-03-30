@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tiny but Mighty was accepted to ICLR 2026
+title: NanoMind was accepted to ICLR 2026
 date: 2026-01-25
 ---
 
