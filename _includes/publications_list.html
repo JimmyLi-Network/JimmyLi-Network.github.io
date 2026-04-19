@@ -11,6 +11,9 @@
   {% assign posts = site.papers | where: "featured", true | sort: "date" | reverse %}
   <div class="publication-list">
     {% for post in posts %}
+      {% assign post_arxiv = post.arxiv | strip %}
+      {% assign post_pdf = post.pdf | strip %}
+      {% assign post_link = post.link | strip %}
       <article class="publication-item">
         {% if post.image %}
         <a class="publication-image-link" href="{{ post.url }}">
@@ -27,14 +30,14 @@
           <p>{{ post.abstract | strip_html | truncate: 220 }}</p>
           {% endif %}
           <p class="publication-links">
-            {% if post.arxiv %}
-            <a href="{{ post.arxiv }}">arXiv</a>
+            {% if post_arxiv != "" %}
+            <a href="{{ post_arxiv }}">arXiv</a>
             {% endif %}
-            {% if post.pdf %}
-            <a href="{{ post.pdf }}">PDF</a>
+            {% if post_pdf != "" %}
+            <a href="{{ post_pdf }}">PDF</a>
             {% endif %}
-            {% if post.link and post.link != post.arxiv and post.link != post.pdf %}
-            <a href="{{ post.link }}">Link</a>
+            {% if post_link != "" and post_link != post_arxiv and post_link != post_pdf %}
+            <a href="{{ post_link }}">Link</a>
             {% endif %}
             <a href="{{ post.url }}">Details</a>
           </p>

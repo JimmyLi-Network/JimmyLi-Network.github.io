@@ -1,3 +1,12 @@
+{% assign post_arxiv = post.arxiv | strip %}
+{% assign post_pdf = post.pdf | strip %}
+{% assign post_video = post.video | strip %}
+{% assign post_video2 = post.video2 | strip %}
+{% assign post_code = post.code | strip %}
+{% assign post_poster = post.poster | strip %}
+{% assign post_slides = post.slides | strip %}
+{% assign post_link = post.link | strip %}
+{% assign post_youtube = post.youtube | strip %}
 <p>
 {{post.authors}}
 <br />
@@ -5,32 +14,32 @@
 <br/>
 {{ post.date | date: "%Y" }}
 <br />
-{% if post.arxiv %}
-  <a href="{{post.arxiv}}">arxiv</a> /
+{% if post_arxiv != "" %}
+  <a href="{{post_arxiv}}">arxiv</a> /
 {% endif %}
-{% if post.pdf %}
-  <a href="{{post.pdf}}">pdf</a> /
+{% if post_pdf != "" %}
+  <a href="{{post_pdf}}">pdf</a> /
 {% endif %}
-{% if post.video %}
-  <a href="{{post.video}}">video</a> /
+{% if post_video != "" %}
+  <a href="{{post_video}}">video</a> /
 {% endif %}
-{% if post.video2 %}
-  <a href="{{post.video2}}">video 2</a> /
+{% if post_video2 != "" %}
+  <a href="{{post_video2}}">video 2</a> /
 {% endif %}
-{% if post.code %}
-  <a href="{{post.code}}">code</a> /
+{% if post_code != "" %}
+  <a href="{{post_code}}">code</a> /
 {% endif %}
-{% if post.poster %}
-  <a href="{{post.poster}}">poster</a> /
+{% if post_poster != "" %}
+  <a href="{{post_poster}}">poster</a> /
 {% endif %}
-{% if post.slides %}
-  <a href="{{post.slides}}">slides</a> /
+{% if post_slides != "" %}
+  <a href="{{post_slides}}">slides</a> /
 {% endif %}
-{% if post.link %}
-  <a href="{{post.link}}">link</a> /
+{% if post_link != "" %}
+  <a href="{{post_link}}">link</a> /
 {% endif %}
-{% if post.youtube %}
-  <a href="{{post.youtube}}">youtube</a> /
+{% if post_youtube != "" %}
+  <a href="{{post_youtube}}">youtube</a> /
 {% endif %}
 {% if post.bib %}
   <a data-bs-toggle="collapse" href="#collapse-bib-{{post.url}}" role="button" aria-expanded="false" aria-controls="collapse-bib-{{post.url}}">
