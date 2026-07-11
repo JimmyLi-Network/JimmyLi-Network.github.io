@@ -6,23 +6,20 @@ permalink: /blog/
 
 <section class="home-section blog-page">
   <div class="section-heading">
-    <p class="section-label">Research Notes</p>
+    <p class="section-label">Technical Writing</p>
     <h1>Blog</h1>
     <p class="section-intro">
-      Work in progress, prototypes, and research notes that describe ongoing
-      systems work before it becomes a formal publication.
+      Technical posts, research notes, and short guides on systems, edge AI,
+      wireless sensing, and small-model deployment.
     </p>
   </div>
 
-  {% assign notes = site.posts | sort: "date" | reverse %}
+  {% assign notes = site.posts | where: "listed", true | sort: "date" | reverse %}
   <div class="blog-list">
     {% for note in notes %}
       <article class="blog-item">
         <div class="blog-item-header">
-          <p class="blog-date">{{ note.date | date: "%Y.%m.%d" }}</p>
-          {% if note.status %}
-            <span class="blog-status">{{ note.status }}</span>
-          {% endif %}
+          <p class="blog-date">{{ note.date | date: "%B %-d, %Y" }}</p>
           {% if note.theme %}
             <span class="blog-theme">{{ note.theme }}</span>
           {% endif %}
@@ -33,7 +30,7 @@ permalink: /blog/
         {% if note.summary %}
           <p class="blog-summary">{{ note.summary }}</p>
         {% endif %}
-        <a class="text-link" href="{{ note.url }}">Read note</a>
+        <a class="text-link" href="{{ note.url }}">Read the note</a>
       </article>
     {% endfor %}
   </div>

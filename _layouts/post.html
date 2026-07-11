@@ -2,25 +2,24 @@
 layout: layout
 ---
 
-{% include profile_short.html %}
+<section class="home-section post-page">
+  <header class="post-header">
+    <a class="post-back" href="/blog/">&larr; Back to Blog</a>
+    <div class="post-meta">
+      <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {% if page.theme %}
+        <span class="blog-theme">{{ page.theme }}</span>
+      {% endif %}
+    </div>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.summary %}
+      <p class="post-summary">{{ page.summary }}</p>
+    {% endif %}
+  </header>
 
-<table
-  style="
-    width: 100%;
-    border: 0px;
-    border-spacing: 0px;
-    border-collapse: separate;
-    margin-right: auto;
-    margin-left: auto;
-  "
->
-  <tr>
-    <td style="padding: 2.5%; width: 100%; vertical-align: middle">
-      <h1>{{ page.title }}</h1>
-    </td>
-  </tr>
-
-  <tr>
-    <td>{{content}}</td>
-  </tr>
-</table>
+  <article class="post-body">
+    {{ content }}
+  </article>
+</section>

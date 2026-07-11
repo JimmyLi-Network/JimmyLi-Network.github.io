@@ -14,6 +14,7 @@ INDEX_HTML="$BUILD_DIR/index.html"
 PUBLICATIONS_HTML="$BUILD_DIR/publications/index.html"
 PROJECTS_HTML="$BUILD_DIR/projects/index.html"
 BLOG_HTML="$BUILD_DIR/blog/index.html"
+ACCELERATOR_POST_HTML="$BUILD_DIR/what-we-learned-the-hard-way-about-npus-gpus-and-unified-memory/index.html"
 MEDUSA_PAPER_HTML="$BUILD_DIR/papers/2025-12-09-Medusa/index.html"
 FAVICON_FILE="$BUILD_DIR/favicon.ico"
 EMBER_PDF_FILE="$BUILD_DIR/pdfs/EMBER_Li.pdf"
@@ -23,6 +24,7 @@ NORMALIZED_INDEX="$BUILD_DIR/index.normalized.txt"
 NORMALIZED_PUBLICATIONS="$BUILD_DIR/publications.normalized.txt"
 NORMALIZED_PROJECTS="$BUILD_DIR/projects.normalized.txt"
 NORMALIZED_BLOG="$BUILD_DIR/blog.normalized.txt"
+NORMALIZED_ACCELERATOR_POST="$BUILD_DIR/accelerator-post.normalized.txt"
 NORMALIZED_MEDUSA_PAPER="$BUILD_DIR/medusa-paper.normalized.txt"
 
 if [[ ! -f "$INDEX_HTML" ]]; then
@@ -73,6 +75,13 @@ fi
 
 tr '\n' ' ' <"$BLOG_HTML" | tr -s '[:space:]' ' ' >"$NORMALIZED_BLOG"
 
+if [[ ! -f "$ACCELERATOR_POST_HTML" ]]; then
+  echo "FAIL: generated accelerator blog post not found at $ACCELERATOR_POST_HTML" >&2
+  exit 1
+fi
+
+tr '\n' ' ' <"$ACCELERATOR_POST_HTML" | tr -s '[:space:]' ' ' >"$NORMALIZED_ACCELERATOR_POST"
+
 if [[ ! -f "$MEDUSA_PAPER_HTML" ]]; then
   echo "FAIL: generated MEDUSA paper page not found at $MEDUSA_PAPER_HTML" >&2
   exit 1
@@ -116,6 +125,15 @@ assert_blog_contains() {
   fi
 }
 
+assert_accelerator_post_contains() {
+  local needle="$1"
+
+  if ! grep -Fq -- "$needle" "$NORMALIZED_ACCELERATOR_POST"; then
+    echo "FAIL: expected accelerator blog post to contain: $needle" >&2
+    exit 1
+  fi
+}
+
 assert_medusa_paper_contains() {
   local needle="$1"
 
@@ -149,7 +167,7 @@ assert_contains "mmPupil"
 assert_contains "Virgile / NanoMind"
 assert_contains "EMBER"
 assert_contains "Cast a Wider Net: Coordinated Pass@K Policy Optimization for Code Reasoning"
-assert_contains "publication-item--text-only"
+assert_contains "publication-entry"
 assert_contains "<strong class=\"publication-venue\">MobiCom 2025</strong>"
 assert_contains "CRANE is now open-sourced for direct Apple Neural Engine inference without Core ML."
 assert_contains "MEDUSA repo is here!"
@@ -180,6 +198,11 @@ if grep -Fq -- "publication-image" "$NORMALIZED_INDEX"; then
   exit 1
 fi
 
+if grep -Fq -- "publication-item--text-only" "$NORMALIZED_INDEX" "$NORMALIZED_PUBLICATIONS"; then
+  echo "FAIL: publications should render as plain list entries, not boxed publication cards" >&2
+  exit 1
+fi
+
 assert_projects_contains ">Projects<"
 assert_projects_contains "RL Finetuning for Small Models"
 assert_projects_contains "Wireless Human Sensing"
@@ -199,18 +222,53 @@ if grep -Fq -- "mmPupil.pdf" "$NORMALIZED_INDEX" "$NORMALIZED_PROJECTS"; then
 fi
 
 assert_blog_contains ">Blog<"
-assert_blog_contains "Research Notes"
-assert_blog_contains "Work in progress, prototypes, and research notes"
-assert_blog_contains "Building On-Device AI Systems from Hardware to Software"
-assert_blog_contains "RL Post-Training for Efficient Edge AI"
-assert_blog_contains "Wireless Sensing Systems in the Wild"
-assert_blog_contains "Ongoing"
-assert_blog_contains "Prototype"
+assert_blog_contains "Technical Writing"
+assert_blog_contains "Technical posts, research notes, and short guides"
+assert_blog_contains "What We Learned the Hard Way About NPUs, GPUs, and Unified Memory"
+assert_blog_contains "href=\"/what-we-learned-the-hard-way-about-npus-gpus-and-unified-memory/\""
+assert_blog_contains "NPUs like stable graphs, GPUs need enough parallel work, and shared memory is still shared."
+
+blog_item_count="$(awk -F'class=\"blog-item\"' '{count += NF - 1} END {print count}' "$NORMALIZED_BLOG")"
+if [[ "$blog_item_count" -ne 1 ]]; then
+  echo "FAIL: blog page should list exactly one finished article, found $blog_item_count" >&2
+  exit 1
+fi
+
+if grep -Fq -- "Building On-Device AI Systems from Hardware to Software" "$NORMALIZED_BLOG" \
+  || grep -Fq -- "RL Post-Training for Efficient Edge AI" "$NORMALIZED_BLOG" \
+  || grep -Fq -- "Wireless Sensing Systems in the Wild" "$NORMALIZED_BLOG" \
+  || grep -Fq -- "Re-Mind Project Pitch Deck" "$NORMALIZED_BLOG" \
+  || grep -Fq -- "href=\"/pdfs/Re-Mind_for_pitch.pdf\"" "$NORMALIZED_BLOG"; then
+  echo "FAIL: blog page should list only the finished accelerator article" >&2
+  exit 1
+fi
+
+assert_accelerator_post_contains "Back to Blog"
+assert_accelerator_post_contains "Systems Note"
+assert_accelerator_post_contains "A quick note on the numbers: they are rounded from what we observed in our experiments."
+assert_accelerator_post_contains "The trend matters more than the exact value."
+assert_accelerator_post_contains "An edge SoC is not a smaller datacenter GPU."
+assert_accelerator_post_contains "Unified memory makes handoff cheap; it does not make concurrent memory traffic free."
+assert_accelerator_post_contains "optimize complete token time"
+assert_accelerator_post_contains "Embeddings travel well."
+assert_accelerator_post_contains "KV caches"
+
+if grep -Fq -- "EdgeFlow" "$NORMALIZED_BLOG" "$NORMALIZED_ACCELERATOR_POST"; then
+  echo "FAIL: the unpublished project name should not appear in the public Blog" >&2
+  exit 1
+fi
+
+if grep -Fq -- "unpublished internal experiments" "$NORMALIZED_ACCELERATOR_POST" \
+  || grep -Fq -- "benchmark claims" "$NORMALIZED_ACCELERATOR_POST"; then
+  echo "FAIL: the Blog should describe experimental observations conversationally" >&2
+  exit 1
+fi
 
 assert_publications_contains ">Publications<"
 assert_publications_contains "On-Device AI"
 assert_publications_contains "Agentic AI for Small LLMs"
 assert_publications_contains "Wireless Sensing"
+assert_publications_contains "publication-page-item publication-entry"
 assert_publications_contains "Cast a Wider Net: Coordinated Pass@K Policy Optimization for Code Reasoning"
 assert_publications_contains "Coordinated Pass@K Policy Optimization"
 assert_publications_contains "<strong class=\"publication-venue\">MobiCom 2025</strong>"

@@ -30,7 +30,7 @@ permalink: /publications/
             {% assign post_poster = post.poster | strip %}
             {% assign post_slides = post.slides | strip %}
             {% assign post_link = post.link | strip %}
-            <article class="publication-page-item">
+            <article class="publication-page-item publication-entry">
               <h3 class="publication-page-title">
                 <a href="{{ post.url }}">{{ post.title }}</a>
               </h3>
