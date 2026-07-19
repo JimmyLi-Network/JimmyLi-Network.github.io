@@ -156,6 +156,15 @@ assert_contains "efficient LLM inference, RL post-training, and wireless systems
 assert_contains "pursuing my Ph.D. at the University of Wisconsin-Madison"
 assert_contains "href=\"https://pages.cs.wisc.edu/~suman/\""
 assert_contains "Prof. Suman Banerjee"
+assert_contains "spent several years building MIMO radar systems"
+assert_contains "real-world indoor and hospital settings"
+assert_contains "NEC Laboratories America"
+assert_contains "Dr. Eugene Chai"
+assert_contains "Dr. Karthikeyan Sundaresan"
+assert_contains "Meta Reality Labs"
+assert_contains "silicon and ML accelerator development for wearable devices"
+assert_contains "multimodal contextual AI pipeline"
+assert_contains "sensing hardware, silicon, runtimes, models, and deployment constraints"
 assert_contains "The shift from frontier AI models to smaller, deployable AI systems"
 assert_contains "AI must not be locked inside corporate black boxes. Free intelligence that people themselves can run, study, modify, reproduce, share, and trust."
 assert_contains "<blockquote class=\"hero-slogan\">"
@@ -177,6 +186,12 @@ assert_contains "LiveTag: Sensing Human-Object Interaction through Passive Chipl
 assert_contains "href=\"/publications/\""
 assert_contains "href=\"/projects/\""
 assert_contains "href=\"/blog/\""
+
+hero_statement_count="$(awk -F'class=\"hero-statement\"' '{count += NF - 1} END {print count}' "$NORMALIZED_INDEX")"
+if [[ "$hero_statement_count" -ne 2 ]]; then
+  echo "FAIL: homepage bio should contain two distinct hero statement paragraphs, found $hero_statement_count" >&2
+  exit 1
+fi
 
 selected_publications_pos="$(grep -b -o "Selected Publications" "$NORMALIZED_INDEX" | head -n 1 | cut -d: -f1)"
 research_projects_pos="$(grep -b -o "Research Projects" "$NORMALIZED_INDEX" | head -n 1 | cut -d: -f1)"
